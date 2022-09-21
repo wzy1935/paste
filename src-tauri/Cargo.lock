@@ -1787,7 +1787,7 @@ dependencies = [
 
 [[package]]
 name = "paste"
-version = "0.0.0"
+version = "0.1.1"
 dependencies = [
  "lazy_static",
  "serde",
