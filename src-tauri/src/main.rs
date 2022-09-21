@@ -14,7 +14,7 @@ mod store;
 extern crate lazy_static;
 use std::sync::Mutex;
 
-use tauri::{GlobalShortcutManager, Manager};
+use tauri::{Manager};
 
 lazy_static! {
     pub static ref SETTINGS: Mutex<store::Settings> = Mutex::new(store::Settings {
@@ -34,17 +34,8 @@ fn main() {
         .setup(|app| {
             let ah = app.handle();
             store::load_files(&ah);
-
-            let window = ah.get_window("main").unwrap();
-
-            if !ah.global_shortcut_manager().is_registered("CommandOrControl+Space").unwrap() {
-                ah.global_shortcut_manager().register("CommandOrControl+Space",  move || {
-                    window.show();
-                    window.set_focus();
-                    window.emit("set_focus", "");
-                });
-            }
-            ah.get_window("main").unwrap().hide();
+            service::set_shortcut_event(&ah, "CommandOrControl+Space");
+            ah.get_window("main").unwrap().hide().unwrap();
 
 
             Ok(())

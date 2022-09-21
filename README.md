@@ -1,5 +1,7 @@
 # Paste
 
+更新日志：[CHANGELOG_V0](./changelogs/CHANGELOG_V0.md)
+
 最近又敲代码上头了，写了个软件...勉强自己能用，后面再优化下吧。
 
 Paste是一个快捷输入工具：
