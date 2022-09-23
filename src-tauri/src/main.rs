@@ -9,6 +9,7 @@ mod command;
 mod inject;
 mod service;
 mod store;
+mod setting;
 
 #[macro_use]
 extern crate lazy_static;
@@ -36,8 +37,6 @@ fn main() {
             store::load_files(&ah);
             service::set_shortcut_event(&ah, "CommandOrControl+Space");
             ah.get_window("main").unwrap().hide().unwrap();
-
-
             Ok(())
         })
         .invoke_handler(tauri::generate_handler![
@@ -45,6 +44,8 @@ fn main() {
             command::inject_string,
             command::search_content
         ])
+        .system_tray(setting::generate_tray())
+        .on_system_tray_event(setting::tray_event_handler)
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
